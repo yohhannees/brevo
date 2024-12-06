@@ -13,7 +13,7 @@
   "include": [
     "src/**/*.ts",
     "src/types/fileTypes.ts",
-    "src/app.ts",
+    "src/app.js",
     "src/server.js",
     "src/server.js"
   ],

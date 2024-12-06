@@ -1,32 +1,27 @@
 import nodemailer from "nodemailer";
 import { PrismaClient } from "@prisma/client";
-
-const prisma = new PrismaClient();
-
+const prisma = new PrismaClient(); //
 export const sendWelcomeEmail = async (
   fullname: string,
   country: string,
   email: string
 ) => {
-  // Configure Nodemailer with Brevo SMTP settings
+  // Send email
   const transporter = nodemailer.createTransport({
-    host: "smtp-relay.brevo.com",
-    port: 587,
+    service: "Gmail",
     auth: {
-      user: "81169d001@smtp-brevo.com", // Brevo SMTP login
-      pass: "yVZazGWr4TBbQ8EC", // Brevo SMTP password
+      user: process.env.EMAIL_USER,
+      pass: process.env.EMAIL_PASS,
     },
   });
 
-  // Email options
   const mailOptions = {
-    from: `"MyApp" <81169d001@smtp-brevo.com>`, // Your email address
+    from: `"Soundrig" <${process.env.EMAIL_USER}>`,
     to: email,
     subject: "Welcome to MyApp!",
     text: `Hi ${fullname},\n\nWelcome to MyApp! We’re excited to have you join us from ${country}.\n\nBest regards,\nThe MyApp Team`,
   };
 
-  // Send email
   await transporter.sendMail(mailOptions);
 
   // Store email record in the database
