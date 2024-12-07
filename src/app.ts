@@ -4,6 +4,7 @@ import morgan from "morgan";
 import cors from "cors";
 import errorHandler from "./middlewares/errorHandler";
 import nodemailer from "./routes/nodemailer.routes";
+import users from "./routes/user.routes";
 // import brevo from "./routes/brevo.routes";
 const app = express();
 
@@ -13,6 +14,7 @@ app.use(morgan("dev"));
 
 // Middleware to parse URL-encoded data
 app.use(express.urlencoded({ extended: true }));
+app.use("/api/users", users);
 app.use("/api/nodemailer", nodemailer);
 // app.use("/api/brevo", brevo);
 app.get("/", (req, res) => {
